@@ -1,3 +1,71 @@
-#root {
-  color: red;
+body
+{
+  background-color: black;
+}
+
+
+
+#input
+{
+  margin: auto;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+#dropdown
+{
+  margin: auto;
+  display: block;
+  width: 177px;
+}
+
+#searchedEpisodes
+{
+  color: white;
+  text-align: center;
+}
+
+#root
+{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#root li
+{
+  padding: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  list-style-type: none;
+}
+
+#root h1
+{
+  font-size: larger;
+  color: white;
+  width: 250px;
+  text-align: center;
+}
+
+#root p
+{
+  width: 250px;
+  color: white;
+  text-align: center;
+}
+
+
+
+
+footer p
+{
+  color: white;
+  text-align: center;
+}
+
+footer a
+{
+  color: white;
+  display: flex;
+  justify-content: center;
 }
