@@ -24,7 +24,7 @@ header.setAttribute("id", "header");
 /*CREATE INPUT*/
 input.setAttribute("id", "input");
 input.setAttribute("type", "text");
-input.setAttribute("placeholder", "Show All");
+input.setAttribute("placeholder", "Search...");
 input.setAttribute("onkeyup", "myFunction()");
 
 header.appendChild(input);
@@ -33,7 +33,7 @@ header.appendChild(input);
 /*CREATE DROPDOWN*/
 dropdown.setAttribute("id", "dropdown");
 dropdown.setAttribute("placeholder", "Search...");
-placeholderOption.textContent = "Select...";
+placeholderOption.textContent = "Show All";
 
 header.appendChild(dropdown);
 dropdown.appendChild(placeholderOption);
