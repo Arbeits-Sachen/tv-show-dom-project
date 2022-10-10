@@ -24,7 +24,7 @@ header.setAttribute("id", "header");
 /*CREATE INPUT*/
 input.setAttribute("id", "input");
 input.setAttribute("type", "text");
-input.setAttribute("placeholder", "Search...");
+input.setAttribute("placeholder", "Show All");
 input.setAttribute("onkeyup", "myFunction()");
 
 header.appendChild(input);
