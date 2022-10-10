@@ -108,7 +108,7 @@ document.getElementById("dropdown").addEventListener("change", (event) =>
   {
     p = li[i].getElementsByTagName("p")[0];
     h1 = li[i].getElementsByTagName("h1")[0];
-    if(event.target.value == "Select...")
+    if(event.target.value == "Show All")
     {
       li[i].style.display = "";
       currentDisplay = total;
