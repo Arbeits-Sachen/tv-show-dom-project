@@ -58,27 +58,26 @@ allEpisodes.forEach(element =>
   let p = document.createElement("p");
   let episodeCode;
 
-  let episodeDropdown = document.createElement("option");
+  let episodeOption = document.createElement("option");
 
   li.appendChild(header);
   li.appendChild(img);
   li.appendChild(p);
   root.appendChild(li);
   document.body.appendChild(root);
-  dropdown.appendChild(episodeDropdown);
+  dropdown.appendChild(episodeOption);
 
   
-  element.season < 10 ? episodeCode = "S0" + element.season : episodeCode = "S" + element.season;
+  episodeCode = element.season < 10 ? "S0" + element.season : "S" + element.season;
   element.number < 10 ? episodeCode += "E0" + element.number : episodeCode += "E" + element.number;
 
   header.textContent = element.name + " - " +  episodeCode;
-  episodeDropdown.textContent = episodeCode + " - " + element.name;
+  episodeOption.textContent = episodeCode + " - " + element.name;
 
   img.src = element.image.medium;
 
-  p.textContent = element.summary;
-  p.textContent = p.textContent.replace(/<p>|/g, "");
-  p.textContent = p.textContent.split("</p>")[0];
+  p.innerHTML = element.summary;
+
   total++;
 });
 
@@ -131,7 +130,7 @@ document.getElementById("dropdown").addEventListener("change", (event) =>
 /*HIDE/SHOW FUNCTION*/
 function myFunction()
 {
-  let currentDisplay = total;
+  let currentDisplay = 0;
   let input = document.getElementById("input");
   let filter = input.value.toUpperCase();
   let ul = document.getElementById("root");
@@ -150,10 +149,8 @@ function myFunction()
     else
     {
       li[i].style.display = "none";
-      currentDisplay--;
     }
   }
-  currentDisplay /= 2;
   
   searchedEpisodes.textContent = "Displaying " + currentDisplay + "/" + total + " episodes.";
 }
@@ -173,7 +170,7 @@ footer.appendChild(footerP);
 footer.appendChild(link);
 document.body.appendChild(footer)
 
-footerP.textContent = "This data was originally from"
+footerP.textContent = "This data was originally from";
 link.textContent = "TVMaze";
 
 
