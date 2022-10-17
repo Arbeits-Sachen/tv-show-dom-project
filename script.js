@@ -116,6 +116,13 @@ document.getElementById("searchShow").addEventListener("change", (event) =>
   let dropdownOption = document.getElementById("searchShow");
   let showId;
 
+  let extraDelete = document.getElementById("searchShow");
+  
+  if (extraDelete.length > 0)
+  {
+    extraDelete.remove(extraDelete.length-1);
+  }
+
   if(event.target.value != "Show Nothing")
   {
     showId = dropdownOption[dropdownOption.selectedIndex].id;
@@ -294,9 +301,9 @@ function myFunction()
 /*SORT OPTIONS*/
 function sortList(select, startAt)
 {
-  var texts = [];
+  let texts = [];
 
-  for(var i = startAt; i < select.length; i++)
+  for(let i = startAt; i < select.length; i++)
   {
       texts[i] =
       [
@@ -311,7 +318,7 @@ function sortList(select, startAt)
 
   texts.forEach(function(text, index)
   {
-      var parts = text.split('|');
+      let parts = text.split('|');
 
       select.options[startAt + index].text = parts[1];
       select.options[startAt + index].value = parts[2];
