@@ -12,6 +12,14 @@ body
   margin-bottom: 0.5rem;
 }
 
+#searchShow
+{
+  margin: auto;
+  display: block;
+  width: 177px;
+  margin-bottom: 1rem;
+}
+
 #dropdown
 {
   margin: auto;
