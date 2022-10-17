@@ -292,32 +292,31 @@ function myFunction()
 
 
 /*SORT OPTIONS*/
-function sortList()
+function sortList(select, startAt)
 {
-  var cl = document.getElementById('searchShow');
-  var clTexts = new Array();
- 
-  for(i = 1; i < cl.length; i++){
-     clTexts[i-1] =
-         cl.options[i].text.toUpperCase() + "," +
-         cl.options[i].text + "," +
-         cl.options[i].value + "," +
-         cl.options[i].selected;
+  var texts = [];
+
+  for(var i = startAt; i < select.length; i++)
+  {
+      texts[i] =
+      [
+          select.options[i].text.toUpperCase(),
+          select.options[i].text,
+          select.options[i].value,
+          select.options[i].id
+      ].join('|');
   }
- 
-  clTexts.sort();
- 
-  for(i = 1; i < cl.length; i++){
-     var parts = clTexts[i-1].split(',');
- 
-     cl.options[i].text = parts[1];
-     cl.options[i].value = parts[1];
-     if(parts[2] == "true"){
-         cl.options[i].selected = true;
-     }else{
-        cl.options[i].selected = false;
-     }
-  }
+
+  texts.sort();
+
+  texts.forEach(function(text, index)
+  {
+      var parts = text.split('|');
+
+      select.options[startAt + index].text = parts[1];
+      select.options[startAt + index].value = parts[2];
+      select.options[startAt + index].id = parts[3];
+  });
 }
 
-sortList();
+sortList(searchShow, 1);
