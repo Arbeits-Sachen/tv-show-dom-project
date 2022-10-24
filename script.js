@@ -65,7 +65,6 @@ searchedEpisodes.setAttribute("id", "searchedEpisodes");
 header.appendChild(searchedEpisodes);
 
 
-
 /*CREATE FOOTER*/
 link.setAttribute("href", "https://www.tvmaze.com/")
 
@@ -83,11 +82,15 @@ link.textContent = "TVMaze";
 
 
 
+
+
+
+
+
+
+
+
 createShowListing()
-
-
-
-
 
 
 /*CREATE SHOWS DROPDOWN*/
@@ -98,7 +101,7 @@ selectShow.forEach(element =>
   showOption.setAttribute("value", element.name)
 
   searchShow.appendChild(showOption);
-
+  console.log(showOption)
   showOption.textContent = element.name;
 });
 
@@ -185,15 +188,7 @@ document.getElementById("searchShow").addEventListener("change", (event) =>
         searchedEpisodes.textContent = "Displaying " + total + "/" + total + " episodes.";
       });
 
-      /*CREATE FOOTER*/
-      link.setAttribute("href", "https://www.tvmaze.com/")
-
-      footer.appendChild(footerP);
-      footer.appendChild(link);
       document.body.appendChild(footer)
-
-      footerP.textContent = "This data was originally from";
-      link.textContent = "TVMaze";
     });
   }
 });
@@ -245,11 +240,19 @@ document.getElementById("dropdown").addEventListener("change", (event) =>
       li[i].style.display = "";
       currentDisplay = total;
     }
-    else if (h1.innerHTML == selectedReorder)
+
+    else if(h1.innerHTML == selected)
     {
       li[i].style.display = "";
       currentDisplay = 1;
     }
+
+    else if(h1.innerHTML == selectedReorder)
+    {
+      li[i].style.display = "";
+      currentDisplay = 1;
+    }
+
     else
     {
       li[i].style.display = "none";
@@ -259,9 +262,34 @@ document.getElementById("dropdown").addEventListener("change", (event) =>
   if(event.target.value != "Shows Listing")
   {
     searchedEpisodes.textContent = "Displaying " + currentDisplay + "/" + total + " episodes.";
-    showListing = true;
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*HIDE/SHOW FUNCTION*/
@@ -294,6 +322,7 @@ function showHide()
   if(selected == "Shows Listing")
   {
     searchedEpisodes.textContent = "Displaying " + currentDisplay + "/" + total + " episodes.";
+    showListing = true;
   }
 
   else
@@ -384,16 +413,25 @@ function createShowListing()
     document.body.appendChild(root);
   
     
+
+    let episodeOption = document.createElement("option");
+    dropdown.appendChild(episodeOption);
+    episodeOption.textContent = element.name;
+
+
+
+
+
   
     header.textContent = element.name;
   
     img.src = element.image.medium;
   
     p.innerHTML =
-    "Rating: " + element.rating.average + " <br> " +
-    "Genres: " + element.genres + " <br> " +
-    "Status: " + element.status + " <br> " +
-    "Runtime: " + element.runtime + " <br> " +
+    "Rating: " + element.rating.average + "<br>" +
+    "Genres: " + element.genres + "<br>" +
+    "Status: " + element.status + "<br>" +
+    "Runtime: " + element.runtime + "<br>" +
     element.summary
 
     total++;
@@ -401,13 +439,5 @@ function createShowListing()
     searchedEpisodes.textContent = "found " + total + " shows.";
   });
 
-  /*CREATE FOOTER*/
-  link.setAttribute("href", "https://www.tvmaze.com/")
-
-  footer.appendChild(footerP);
-  footer.appendChild(link);
   document.body.appendChild(footer)
-
-  footerP.textContent = "This data was originally from";
-  link.textContent = "TVMaze";
 }
