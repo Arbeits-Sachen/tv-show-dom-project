@@ -10,16 +10,19 @@ let showOptionHeader = document.createElement("optgroup");
 let dropdown = document.createElement("select");
 let placeholderOption = document.createElement("option");
 
-let header = document.createElement("div");
+let header = document.createElement("header");
 let searchedEpisodes = document.createElement("p");
+
+let main = document.createElement("main");
 
 let footer = document.createElement("footer");
 let footerP = document.createElement("p");
 let link = document.createElement("a");
 
+let showListing = true;
+
+
 const selectShow = getAllShows();
-
-
 
 
 
@@ -32,7 +35,7 @@ header.setAttribute("id", "header");
 /*SEARCH SHOW*/
 searchShow.setAttribute("id", "searchShow");
 showOptionHeader.setAttribute("label", "Select Show")
-placeholderShowOption.textContent = "Show Nothing";
+placeholderShowOption.textContent = "Shows Listing";
 
 
 searchShow.appendChild(showOptionHeader);
@@ -43,7 +46,7 @@ header.appendChild(searchShow);
 input.setAttribute("id", "input");
 input.setAttribute("type", "text");
 input.setAttribute("placeholder", "Search...");
-input.setAttribute("onkeyup", "myFunction()");
+input.setAttribute("onkeyup", "showHide()");
 
 header.appendChild(input);
 
@@ -80,8 +83,7 @@ link.textContent = "TVMaze";
 
 
 
-
-
+createShowListing()
 
 
 
@@ -99,7 +101,6 @@ selectShow.forEach(element =>
 
   showOption.textContent = element.name;
 });
-
 
 /*SHOW DROPDOWN*/
 document.getElementById("searchShow").addEventListener("change", (event) =>
@@ -120,10 +121,15 @@ document.getElementById("searchShow").addEventListener("change", (event) =>
   
   if (extraDelete.length > 0)
   {
-    extraDelete.remove(extraDelete.length-1);
+    extraDelete.remove(extraDelete.length - 1);
   }
 
-  if(event.target.value != "Show Nothing")
+  if(event.target.value == "Shows Listing")
+  {
+    createShowListing();
+  }
+
+  else if(event.target.value != "Shows Listing")
   {
     showId = dropdownOption[dropdownOption.selectedIndex].id;
 
@@ -144,10 +150,8 @@ document.getElementById("searchShow").addEventListener("change", (event) =>
 
     .then((data) => 
     {
-      allEpisodes = data;
-
       /*CREATE EPISODES*/
-      allEpisodes.forEach(element =>
+      data.forEach(element =>
       {
         let root = document.getElementById("root");
         let li = document.createElement("li");
@@ -177,7 +181,7 @@ document.getElementById("searchShow").addEventListener("change", (event) =>
         p.innerHTML = element.summary;
       
         total++;
-      
+        
         searchedEpisodes.textContent = "Displaying " + total + "/" + total + " episodes.";
       });
 
@@ -192,12 +196,8 @@ document.getElementById("searchShow").addEventListener("change", (event) =>
       link.textContent = "TVMaze";
     });
   }
-
-  else
-  {
-    searchedEpisodes.textContent = "Displaying " + 0 + "/" + 0 + " episodes.";
-  }
 });
+
 
 
 
@@ -255,20 +255,26 @@ document.getElementById("dropdown").addEventListener("change", (event) =>
       li[i].style.display = "none";
     }
   }
-  
-  searchedEpisodes.textContent = "Displaying " + currentDisplay + "/" + total + " episodes.";
+
+  if(event.target.value != "Shows Listing")
+  {
+    searchedEpisodes.textContent = "Displaying " + currentDisplay + "/" + total + " episodes.";
+    showListing = true;
+  }
 });
 
 
 /*HIDE/SHOW FUNCTION*/
-function myFunction()
+function showHide()
 {
   let currentDisplay = 0;
   let input = document.getElementById("input");
   let filter = input.value.toUpperCase();
   let ul = document.getElementById("root");
   let li = ul.getElementsByTagName("li");
+  let dropdownOption = document.getElementById("dropdown");
 
+  let selected = dropdownOption.options[dropdownOption.selectedIndex].text;
 
   for (i = 0; i < li.length; i++)
   {
@@ -285,9 +291,17 @@ function myFunction()
     }
   }
   
-  searchedEpisodes.textContent = "Displaying " + currentDisplay + "/" + total + " episodes.";
-}
+  if(selected == "Shows Listing")
+  {
+    searchedEpisodes.textContent = "Displaying " + currentDisplay + "/" + total + " episodes.";
+  }
 
+  else
+  {
+    searchedEpisodes.textContent = "found " + currentDisplay + " shows.";
+    showListing = false;
+  }
+}
 
 
 
@@ -331,3 +345,69 @@ function sortList(select, startAt)
 }
 
 sortList(searchShow, 1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function createShowListing()
+{
+  selectShow.forEach(element =>
+  {
+    let root = document.getElementById("root");
+    let li = document.createElement("li");
+    let header = document.createElement("h1");
+    let img = document.createElement("img");
+    let p = document.createElement("p");
+
+    li.setAttribute("id", "showL-li");
+    header.setAttribute("id", "showL-h1");
+    img.setAttribute("id", "showL-img");
+    p.setAttribute("id", "showL-p");
+
+    li.appendChild(header);
+    li.appendChild(img);
+    li.appendChild(p);
+    root.appendChild(li);
+    document.body.appendChild(root);
+  
+    
+  
+    header.textContent = element.name;
+  
+    img.src = element.image.medium;
+  
+    p.innerHTML =
+    "Rating: " + element.rating.average + " <br> " +
+    "Genres: " + element.genres + " <br> " +
+    "Status: " + element.status + " <br> " +
+    "Runtime: " + element.runtime + " <br> " +
+    element.summary
+
+    total++;
+  
+    searchedEpisodes.textContent = "found " + total + " shows.";
+  });
+
+  /*CREATE FOOTER*/
+  link.setAttribute("href", "https://www.tvmaze.com/")
+
+  footer.appendChild(footerP);
+  footer.appendChild(link);
+  document.body.appendChild(footer)
+
+  footerP.textContent = "This data was originally from";
+  link.textContent = "TVMaze";
+}
