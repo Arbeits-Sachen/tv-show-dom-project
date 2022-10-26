@@ -261,7 +261,7 @@ document.getElementById("dropdown").addEventListener("change", (event) =>
 
   if(event.target.value != "Shows Listing")
   {
-    searchedEpisodes.textContent = "Displaying " + currentDisplay + "/" + total + " episodes.";
+    searchedEpisodes.textContent = "Displaying " + currentDisplay + "/" + total + ".";
   }
 });
 
@@ -432,7 +432,7 @@ function createShowListing()
     "Genres: " + element.genres + "<br>" +
     "Status: " + element.status + "<br>" +
     "Runtime: " + element.runtime + "<br>" +
-    element.summary
+    element.summary;
 
     total++;
   
